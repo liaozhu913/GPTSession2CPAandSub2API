@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ChatGPT Session -> CPA / sub2api / Cockpit</title>
+    <title>ChatGPT Session Converter</title>
     <meta name="theme-color" content="#24505a" />
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" sizes="any" />
     <style>
@@ -302,69 +302,124 @@
         font-weight: 700;
       }
 
-      .telegram-card {
+      .brand-card {
         position: relative;
         display: grid;
-        grid-template-columns: auto minmax(0, 1fr);
-        gap: 12px 14px;
-        align-items: start;
+        gap: 8px;
         margin-bottom: 12px;
-        padding: 14px 14px 52px;
-        border: 1px solid rgba(0, 136, 204, 0.28);
+        padding: 16px 16px 18px;
+        border: 1px solid rgba(36, 80, 90, 0.18);
         border-radius: var(--radius);
-        background: #f1f9ff;
-        color: #173d52;
+        background:
+          linear-gradient(180deg, rgba(36, 80, 90, 0.08), rgba(36, 80, 90, 0.02)),
+          #f7fbfc;
+        color: var(--text);
         text-decoration: none;
+        overflow: hidden;
       }
 
-      .telegram-card:hover {
-        border-color: rgba(0, 136, 204, 0.5);
-        background: #eaf6ff;
+      .brand-card::after {
+        content: "";
+        position: absolute;
+        inset: auto -24px -24px auto;
+        width: 120px;
+        height: 120px;
+        border-radius: 999px;
+        background: radial-gradient(circle, rgba(36, 80, 90, 0.14), transparent 72%);
+        pointer-events: none;
       }
 
-      .telegram-icon {
-        display: grid;
-        width: 44px;
-        height: 44px;
-        place-items: center;
-        border-radius: var(--radius);
-        background: #0088cc;
+      .brand-card:hover {
+        border-color: rgba(36, 80, 90, 0.34);
+        background:
+          linear-gradient(180deg, rgba(36, 80, 90, 0.1), rgba(36, 80, 90, 0.03)),
+          #f4fafb;
+      }
+
+      .brand-card-top {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .brand-pill {
+        display: inline-flex;
+        align-items: center;
+        min-height: 28px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: var(--accent);
         color: #fff;
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.02em;
       }
 
-      .telegram-icon svg {
-        width: 27px;
-        height: 27px;
-        fill: currentColor;
-      }
-
-      .telegram-copy strong {
-        display: block;
-        margin-bottom: 4px;
-        color: #12384d;
-        font-size: 0.98rem;
+      .brand-card strong {
+        color: var(--accent-strong);
+        font-size: 1rem;
         line-height: 1.35;
       }
 
-      .telegram-copy span {
-        display: block;
-        color: #3f5f70;
-        font-size: 0.88rem;
-        line-height: 1.45;
+      .brand-card p {
+        margin: 0;
+        color: #39535d;
+        font-size: 0.9rem;
+        line-height: 1.55;
+        max-width: 58ch;
       }
 
-      .telegram-action {
-        position: absolute;
-        right: 14px;
-        bottom: 14px;
-        min-height: 32px;
-        padding: 6px 12px;
+      .brand-card-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: fit-content;
+        min-height: 34px;
+        padding: 0 12px;
         border-radius: 6px;
-        background: #0088cc;
+        background: var(--accent);
         color: #fff;
         font-weight: 800;
-        white-space: nowrap;
-        box-shadow: 0 8px 18px rgba(0, 136, 204, 0.22);
+        text-decoration: none;
+      }
+
+      .brand-card-link:hover {
+        background: var(--accent-strong);
+      }
+
+      .page-footer {
+        display: grid;
+        gap: 8px;
+        margin-top: 16px;
+        padding: 14px 16px 0;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+      }
+
+      .footer-note {
+        margin: 0;
+        font-size: 0.88rem;
+        line-height: 1.5;
+      }
+
+      .footer-meta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px 14px;
+        font-size: 0.86rem;
+      }
+
+      .footer-meta a {
+        color: var(--accent);
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      .footer-meta a:hover {
+        color: var(--accent-strong);
+        text-decoration: underline;
       }
 
       .input-actions {
@@ -591,10 +646,6 @@
           grid-template-columns: 1fr;
         }
 
-        .telegram-card {
-          grid-template-columns: auto minmax(0, 1fr);
-        }
-
         .col-expiry,
         .col-type,
         td:nth-child(3),
@@ -635,7 +686,7 @@
           <span class="meta-chip">不写入存储</span>
           <a
             class="meta-chip github-link"
-            href="https://github.com/yynxxxxx/GPTSession2CPAandSub2API"
+            href="https://github.com/liaozhu913/GPTSession2CPAandSub2API"
             target="_blank"
             rel="noreferrer"
             aria-label="本页面代码开源"
@@ -679,17 +730,13 @@
               </p>
               <p class="session-warning">这段 JSON 包含 accessToken 和 sessionToken，等同敏感登录凭证，不要发给别人。</p>
             </div>
-            <a class="telegram-card" href="https://t.me/Geminivip1" target="_blank" rel="noreferrer">
-              <span class="telegram-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24">
-                  <path d="M22.44 2.13c.42-.17.85.19.74.63l-3.28 15.47c-.1.49-.66.69-1.05.38l-4.98-3.67-2.4 2.31c-.27.27-.49.49-1.01.49l.36-5.1 9.29-8.4c.4-.36-.09-.56-.63-.2L7.99 11.27 3.04 9.72c-1.08-.34-1.1-1.08.22-1.59l19.18-6Z" />
-                </svg>
-              </span>
-              <span class="telegram-copy">
-                <strong>加入 Telegram 群免费获取 GPT 撸羊毛信息</strong>
-                <span>本工具主要针对 Plus 账号适用，Free 账号即使转换了也没有权限调用 GPT 模型。GoPay 拉闸了，没法每天发 Plus 了；加入 Telegram 群免费获取 GPT 撸羊毛信息，然后配合本工具导入 CPA or Sub2API 使用。</span>
-              </span>
-              <span class="telegram-action">加入群组</span>
+            <a class="brand-card" href="https://link3.cc/liaozhu913" target="_blank" rel="noreferrer">
+              <div class="brand-card-top">
+                <span class="brand-pill">个人品牌入口</span>
+                <strong>料主（liaozhu913）的个人主页</strong>
+              </div>
+              <p>这里会持续整理我的工具、内容、社群和更新入口。先从这个主页开始，后续会逐步补充更多链接。</p>
+              <span class="brand-card-link">打开主页</span>
             </a>
             <input class="hidden" id="file-input" type="file" accept=".json,application/json" multiple />
             <div class="input-actions">
@@ -760,6 +807,13 @@
           </div>
         </section>
       </section>
+      <footer class="page-footer">
+        <p class="footer-note">这里是料主（liaozhu913）的个人主页入口，持续整理中。</p>
+        <div class="footer-meta">
+          <span>页面基于开源项目二次整理</span>
+          <a href="https://link3.cc/liaozhu913" target="_blank" rel="noreferrer">打开主页</a>
+        </div>
+      </footer>
     </main>
 
     <script>
